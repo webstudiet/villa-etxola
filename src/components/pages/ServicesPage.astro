@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { routes, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const inList = t('srv.in.list') as ReadonlyArray<{ title: string; desc: string }>;
+const outList = t('srv.out.list') as ReadonlyArray<{ title: string; desc: string }>;
+
+const serviceImages = [
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-1-chef-service-KmYhY6lZxzs.jpg', alt: 'Chef service' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-2-food-shopping-gOUx23DNks.jpg', alt: 'Food shopping' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-3-yoga-n8L1VYaypcw.jpg', alt: 'Yoga' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-4-housekeeping.jpg', alt: 'Housekeeping' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-5-bicycles-rentals-LPVMzMsO51o.jpg', alt: 'Bicycle rental' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-6-boat-rental-H5k2qVaQPoM.jpg', alt: 'Boat rental' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-7-babysitting-2558204_1920.jpg', alt: 'Babysitting' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-8-restaurant-reservation.jpg', alt: 'Restaurant reservation' },
+];
+---
+
+<Layout lang={lang} title={t('srv.meta.title')} description={t('srv.meta.description')}>
+  <section class="page-hero">
+    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-services-carousel.jpg"
+         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">{t('srv.hero.title')}</h1>
+  </section>
+
+  <section class="py-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="section-title mb-6">{t('srv.intro.title')}</h2>
+      <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mx-auto mb-8"></div>
+      <p class="section-subtitle mb-4">{t('srv.intro.p1')}</p>
+      <p class="section-subtitle">{t('srv.intro.p2')}</p>
+    </div>
+  </section>
+
+  <section class="pb-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 text-center mb-10">{t('srv.in.heading')}</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {inList.map(s => (
+          <div class="p-6 border border-gray-100 dark:border-gray-800 rounded hover:shadow-md dark:hover:shadow-gray-900 transition-shadow">
+            <h4 class="text-sm font-semibold uppercase tracking-widest text-gray-800 dark:text-gray-100 mb-3">{s.title}</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <h3 class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 text-center mb-10">{t('srv.out.heading')}</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {outList.map(s => (
+          <div class="p-6 border border-gray-100 dark:border-gray-800 rounded hover:shadow-md dark:hover:shadow-gray-900 transition-shadow">
+            <h4 class="text-sm font-semibold uppercase tracking-widest text-gray-800 dark:text-gray-100 mb-3">{s.title}</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+      {serviceImages.map(img => (
+        <img src={img.src} alt={img.alt} class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-white dark:bg-gray-950 text-center">
+    <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('srv.cta.eyebrow')}</p>
+    <h2 class="section-title mb-4">{t('srv.cta.title')}</h2>
+    <p class="section-subtitle max-w-xl mx-auto mb-8">{t('srv.cta.text')}</p>
+    <a href={routes[lang].book} class="btn-dark">{t('srv.cta.button')}</a>
+  </section>
+</Layout>

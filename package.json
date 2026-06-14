@@ -16,7 +16,9 @@
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^13.6.1",
-		"astro": "^6.4.4"
+		"@tailwindcss/vite": "^4.3.0",
+		"astro": "^6.4.4",
+		"tailwindcss": "^4.3.0"
 	},
 	"devDependencies": {
 		"wrangler": "^4.98.0"

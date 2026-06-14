@@ -1,0 +1,139 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { routes, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const facilityPhotos = [
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-01.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-02.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-03.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-04.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-05.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-06.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-07.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-08.jpg',
+];
+
+const livingItems = t('fac.living.items') as readonly string[];
+const bedroomItems = t('fac.bedrooms.items') as readonly string[];
+const outdoorItems = t('fac.outdoor.items') as readonly string[];
+---
+
+<Layout lang={lang} title={t('fac.meta.title')} description={t('fac.meta.description')}>
+  <section class="page-hero">
+    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-carousel-02.jpg"
+         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">{t('fac.hero.title')}</h1>
+  </section>
+
+  <section class="py-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="section-title mb-6">{t('fac.intro.title')}</h2>
+      <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mx-auto mb-8"></div>
+      <p class="section-subtitle mb-8">{t('fac.intro.p1')}</p>
+    </div>
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 mb-12">
+      <p class="section-subtitle">{t('fac.intro.p2')}</p>
+      <p class="section-subtitle">{t('fac.intro.p3')}</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('fac.specs.sleeps_label')}</p>
+        <p class="text-2xl font-light text-gray-800 dark:text-gray-100">{t('fac.specs.sleeps_value')} <span class="text-base text-gray-500">{t('fac.specs.sleeps_unit')}</span></p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('fac.specs.bedrooms_label')} <strong class="text-gray-700 dark:text-gray-200">{t('fac.specs.bedrooms_value')}</strong></p>
+      </div>
+      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('fac.specs.living_label')}</p>
+        <p class="text-2xl font-light text-gray-800 dark:text-gray-100">290 <span class="text-base text-gray-500">{t('fac.specs.living_unit')}</span></p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('fac.specs.plot_label')} <strong class="text-gray-700 dark:text-gray-200">{t('fac.specs.plot_value')}</strong></p>
+      </div>
+      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">{t('fac.specs.key_label')}</p>
+        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{t('fac.specs.key_value')}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+      {facilityPhotos.slice(0, 4).map((src, i) => (
+        <img src={src} alt="" class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title text-center mb-4">{t('fac.detail.title')}</h2>
+      <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mx-auto mb-4"></div>
+      <p class="section-subtitle text-center max-w-2xl mx-auto mb-16">{t('fac.detail.intro')}</p>
+
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-800/10 dark:bg-green-400/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-800 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold uppercase tracking-wider text-gray-800 dark:text-gray-100">{t('fac.living.title')}</h3>
+          </div>
+          <div class="w-8 h-px bg-green-800 dark:bg-green-500 mb-6"></div>
+          <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            {livingItems.map(item => (
+              <li class="flex gap-2"><span class="text-green-700 dark:text-green-400 mt-0.5">—</span>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-800/10 dark:bg-green-400/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-800 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold uppercase tracking-wider text-gray-800 dark:text-gray-100">{t('fac.bedrooms.title')}</h3>
+          </div>
+          <div class="w-8 h-px bg-green-800 dark:bg-green-500 mb-6"></div>
+          <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+            {bedroomItems.map(item => (
+              <li class="flex gap-2"><span class="text-green-700 dark:text-green-400 mt-0.5">—</span>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-800/10 dark:bg-green-400/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-800 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold uppercase tracking-wider text-gray-800 dark:text-gray-100">{t('fac.outdoor.title')}</h3>
+          </div>
+          <div class="w-8 h-px bg-green-800 dark:bg-green-500 mb-6"></div>
+          <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            {outdoorItems.map(item => (
+              <li class="flex gap-2"><span class="text-green-700 dark:text-green-400 mt-0.5">—</span>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+      {facilityPhotos.slice(4, 8).map(src => (
+        <img src={src} alt="" class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-white dark:bg-gray-950 text-center">
+    <h2 class="section-title mb-4">{t('fac.cta.title')}</h2>
+    <p class="section-subtitle max-w-xl mx-auto mb-8">{t('fac.cta.text')}</p>
+    <a href={routes[lang].book} class="btn-dark">{t('fac.cta.button')}</a>
+  </section>
+</Layout>

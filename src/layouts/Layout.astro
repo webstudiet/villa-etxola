@@ -1,0 +1,145 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { routes, type Lang } from '../i18n/ui';
+import { getRouteKeyForPath, getAlternateLang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  image?: string;
+  /** Optional override of the canonical page path. Defaults to current URL. */
+  canonicalPath?: string;
+}
+
+const {
+  lang,
+  title,
+  description = lang === 'fr'
+    ? "Etxola — villa de luxe au Cap Ferret, 7 chambres pour 14 personnes, piscine chauffée et jardin de 1 800 m²."
+    : 'Etxola — a luxury villa in Cap Ferret, France. 7 bedrooms for 14 guests with heated pool, garden and concierge.',
+  image = 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-1.jpg',
+  canonicalPath,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.villa-etxola.com';
+const path = canonicalPath ?? Astro.url.pathname;
+const canonical = `${siteUrl}${path}`;
+
+// hreflang alternates — link the equivalent page in the other locale
+const routeKey = getRouteKeyForPath(path);
+const altLang = getAlternateLang(lang);
+const altPath = routeKey ? routes[altLang][routeKey] : path;
+const altCanonical = `${siteUrl}${altPath}`;
+const htmlLang = lang === 'fr' ? 'fr-FR' : 'en-GB';
+
+// Structured data — VacationRental schema (great for vacation rental SEO).
+const vacationRental = {
+  '@context': 'https://schema.org',
+  '@type': 'VacationRental',
+  '@id': `${siteUrl}#villa-etxola`,
+  name: 'Villa Etxola',
+  description: lang === 'fr'
+    ? "Villa d'architecte de prestige au Cap Ferret avec 7 chambres pour 14 personnes, piscine chauffée et jardin de 1 800 m²."
+    : 'Architect-designed luxury villa in Cap Ferret with 7 bedrooms for 14 guests, heated pool and 1,800 sqm garden.',
+  url: siteUrl,
+  image,
+  brand: { '@type': 'Brand', name: 'Etxola' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '40 boulevard des Mimosas',
+    addressLocality: 'Lège-Cap-Ferret',
+    postalCode: '33970',
+    addressCountry: 'FR',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 44.7188, longitude: -1.2393 },
+  telephone: '+33-7-50-02-11-03',
+  numberOfRooms: 7,
+  occupancy: { '@type': 'QuantitativeValue', maxValue: 14 },
+  petsAllowed: false,
+  smokingAllowed: false,
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Heated swimming pool', value: true },
+    { '@type': 'LocationFeatureSpecification', name: '1,800 sqm garden', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Pétanque court', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Pool house bar', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Concierge service', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'WiFi', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Surfboard rack', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'E-bike charging', value: true },
+  ],
+  floorSize: { '@type': 'QuantitativeValue', value: 290, unitCode: 'MTK' },
+  inLanguage: ['fr', 'en'],
+};
+---
+<!doctype html>
+<html lang={htmlLang} class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2c4a2e" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang={lang === 'fr' ? 'fr' : 'en'} href={canonical} />
+  <link rel="alternate" hreflang={altLang === 'fr' ? 'fr' : 'en'} href={altCanonical} />
+  <link rel="alternate" hreflang="x-default" href={`${siteUrl}/`} />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+  <meta property="og:locale:alternate" content={altLang === 'fr' ? 'fr_FR' : 'en_GB'} />
+  <meta property="og:site_name" content="Villa Etxola" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={image} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+
+  <!-- Fonts (preconnect to keep things fast) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD structured data — VacationRental -->
+  <script type="application/ld+json" set:html={JSON.stringify(vacationRental)} />
+
+  <!-- Theme preference (no-flash) -->
+  <script is:inline>
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 z-[100] bg-white text-gray-900 px-4 py-2 rounded shadow">
+    {lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}
+  </a>
+  <Header lang={lang} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer lang={lang} />
+  <script is:inline>
+    window.toggleDarkMode = function () {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    };
+  </script>
+</body>
+</html>

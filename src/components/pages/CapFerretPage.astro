@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { routes, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const regionImages = [
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/henri-lajarrige-lombard-3eGej5Ab4A-unsplash.png', alt: 'Cap Ferret peninsula' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/raissa-lara-lutolf-fasel-3rsO1XnP6Ow-unsplash.png', alt: 'Cap Ferret village' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/yann-behr-wHWCF5SbDQo-unsplash.png', alt: 'Cap Ferret bay' },
+  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/cathrine-skovly-_BVh-uNZTaQ-unsplash.png', alt: 'Oysters at Cap Ferret' },
+];
+---
+
+<Layout lang={lang} title={t('cf.meta.title')} description={t('cf.meta.description')}>
+  <section class="page-hero">
+    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/le-cap-ferret.jpg"
+         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">{t('cf.hero.title')}</h1>
+  </section>
+
+  <section class="py-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="section-title mb-6">{t('cf.intro.title')}</h2>
+      <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mx-auto mb-8"></div>
+      <p class="section-subtitle mb-4" set:html={t('cf.intro.p1')} />
+      <p class="section-subtitle mb-4">{t('cf.intro.p2')}</p>
+      <p class="section-subtitle" set:html={t('cf.intro.p3')} />
+    </div>
+  </section>
+
+  <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+      {regionImages.map(img => (
+        <img src={img.src} alt={img.alt} class="w-full h-48 md:h-64 object-cover rounded" loading="lazy" />
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('cf.peninsula.eyebrow')}</p>
+        <h2 class="section-title mb-6">{t('cf.peninsula.title')}</h2>
+        <div class="w-12 h-0.5 bg-green-800 dark:bg-green-500 mb-8"></div>
+        <p class="section-subtitle mb-4">{t('cf.peninsula.p1')}</p>
+        <p class="section-subtitle mb-4" set:html={t('cf.peninsula.p2')} />
+        <p class="section-subtitle">{t('cf.peninsula.p3')}</p>
+      </div>
+
+      <div>
+        <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('cf.village.eyebrow')}</p>
+        <h2 class="section-title mb-6">{t('cf.village.title')}</h2>
+        <div class="w-12 h-0.5 bg-green-800 dark:bg-green-500 mb-8"></div>
+        <p class="section-subtitle mb-4" set:html={t('cf.village.p1')} />
+        <p class="section-subtitle mb-4" set:html={t('cf.village.p2')} />
+        <p class="section-subtitle mb-4">{t('cf.village.p3')}</p>
+        <p class="section-subtitle" set:html={t('cf.village.p4')} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-50 dark:bg-gray-900 py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title text-center mb-12">{t('cf.highlights.title')}</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '🌊', title: t('cf.highlights.surf.title'), desc: t('cf.highlights.surf.desc') },
+          { icon: '🦪', title: t('cf.highlights.oyster.title'), desc: t('cf.highlights.oyster.desc') },
+          { icon: '🚴', title: t('cf.highlights.cycle.title'), desc: t('cf.highlights.cycle.desc') },
+          { icon: '⛵', title: t('cf.highlights.boat.title'), desc: t('cf.highlights.boat.desc') },
+        ].map(h => (
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4" aria-hidden="true">{h.icon}</div>
+            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-800 dark:text-gray-100 mb-3">{h.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{h.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-white dark:bg-gray-950 text-center">
+    <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('cf.cta.eyebrow')}</p>
+    <h2 class="section-title mb-4">{t('cf.cta.title')}</h2>
+    <p class="section-subtitle max-w-xl mx-auto mb-8">{t('cf.cta.text')}</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href={routes[lang].services} class="btn-dark">{t('cf.cta.services')}</a>
+      <a href={routes[lang].book} class="btn-dark">{t('cf.cta.book')}</a>
+    </div>
+  </section>
+</Layout>

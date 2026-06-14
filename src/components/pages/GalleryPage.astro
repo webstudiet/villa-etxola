@@ -1,0 +1,142 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { routes, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const galleryImages = [
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-01.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-02.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-03.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-05-1.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-06.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-07.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-08.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-09.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-10.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-11.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-12.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-13.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-14.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-21.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-25.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-29.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-30.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-31.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-33.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-35.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-36.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-38.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-39.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-40.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-42.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-44.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-45.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-46.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-47.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-49.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-50.jpg',
+];
+---
+
+<Layout lang={lang} title={t('gal.meta.title')} description={t('gal.meta.description')}>
+  <section class="page-hero">
+    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-gallery-carousel.jpg"
+         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">{t('gal.hero.title')}</h1>
+  </section>
+
+  <section class="py-16 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="section-subtitle">{t('gal.intro')}</p>
+    </div>
+  </section>
+
+  <section class="pb-20 px-4 bg-white dark:bg-gray-950">
+    <div class="max-w-7xl mx-auto">
+      <div id="gallery" class="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
+        {galleryImages.map((src, i) => (
+          <div class="break-inside-avoid">
+            <button
+              class="gallery-item block w-full overflow-hidden rounded group"
+              data-src={src}
+              data-index={i}
+              aria-label={`Photo ${i + 1}`}
+            >
+              <img
+                src={src.replace('.jpg', '-300x200.jpg')}
+                alt={`Villa Etxola — photo ${i + 1}`}
+                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                loading={i < 8 ? 'eager' : 'lazy'}
+              />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div id="lightbox" class="fixed inset-0 z-[9999] bg-black/95 hidden items-center justify-center" role="dialog" aria-modal="true" aria-label="Gallery">
+    <button id="lb-close" class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl font-light" aria-label="Close">&times;</button>
+    <button id="lb-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-light p-4" aria-label="Previous">&#8249;</button>
+    <button id="lb-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl font-light p-4" aria-label="Next">&#8250;</button>
+    <img id="lb-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain rounded" />
+    <p id="lb-counter" class="absolute bottom-4 left-0 right-0 text-center text-white/50 text-sm"></p>
+  </div>
+
+  <section class="py-16 px-4 bg-stone-50 dark:bg-gray-900 text-center">
+    <h2 class="section-title mb-4">{t('gal.cta.title')}</h2>
+    <p class="section-subtitle max-w-xl mx-auto mb-8">{t('gal.cta.text')}</p>
+    <a href={routes[lang].book} class="btn-dark">{t('gal.cta.button')}</a>
+  </section>
+</Layout>
+
+<script>
+  const images: string[] = [];
+  document.querySelectorAll<HTMLButtonElement>('.gallery-item').forEach((btn) => {
+    images.push(btn.dataset.src || '');
+  });
+
+  const lightbox = document.getElementById('lightbox') as HTMLElement;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCounter = document.getElementById('lb-counter') as HTMLElement;
+  let currentIdx = 0;
+
+  function openLightbox(idx: number) {
+    currentIdx = idx;
+    lbImg.src = images[idx];
+    lbImg.alt = `Villa Etxola — ${idx + 1}`;
+    lbCounter.textContent = `${idx + 1} / ${images.length}`;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+  function navigate(dir: number) {
+    currentIdx = (currentIdx + dir + images.length) % images.length;
+    lbImg.src = images[currentIdx];
+    lbCounter.textContent = `${currentIdx + 1} / ${images.length}`;
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.gallery-item').forEach((btn, i) => {
+    btn.addEventListener('click', () => openLightbox(i));
+  });
+  document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev')?.addEventListener('click', () => navigate(-1));
+  document.getElementById('lb-next')?.addEventListener('click', () => navigate(1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+</script>

@@ -1,0 +1,170 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { routes, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const features = [
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/7-bedrooms.png', label: t('home.features.bedrooms') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/7-bathrooms-1.png', label: t('home.features.bathrooms') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/childrens.png', label: t('home.features.children') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/garden.png', label: t('home.features.garden') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/pool_236x196-removebg-preview-1.png', label: t('home.features.pool') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/petanque_236x196-removebg-preview.png', label: t('home.features.petanque') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/pool-bar_236x196-removebg-preview.png', label: t('home.features.poolbar') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/surf_236x196-removebg-preview-1.png', label: t('home.features.surf') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/BQQ-2_236x196-removebg-preview.png', label: t('home.features.brasero') },
+  { img: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/cleaning_236x196-removebg-preview.png', label: t('home.features.cleaning') },
+];
+
+const heroSlides = [
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-1.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-2.jpg',
+  'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-3.jpg',
+];
+---
+
+<Layout lang={lang} title={t('home.meta.title')} description={t('home.meta.description')}>
+  <!-- Hero Carousel -->
+  <section class="relative h-screen min-h-[600px] overflow-hidden">
+    <div id="hero-slides" class="absolute inset-0">
+      {heroSlides.map((src, i) => (
+        <div class={`hero-slide absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}>
+          <img src={src} alt="Villa Etxola" class="w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
+        </div>
+      ))}
+    </div>
+    <div class="absolute inset-0 bg-black/45"></div>
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+      <p class="text-white/70 tracking-[0.4em] text-xs uppercase mb-4">{t('site.location')}</p>
+      <h1 class="text-white text-4xl md:text-7xl font-light uppercase tracking-[0.25em] mb-8 drop-shadow-2xl">
+        {t('home.hero.welcome')}
+      </h1>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href={routes[lang].facilities} class="btn-primary">{t('home.hero.discover')}</a>
+        <a href={routes[lang].book} class="btn-primary">{t('home.hero.book')}</a>
+      </div>
+    </div>
+    <div class="absolute bottom-8 left-0 right-0 z-10 flex justify-center gap-2">
+      {heroSlides.map((_, i) => (
+        <button class={`slide-dot w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-white w-6' : 'bg-white/50'}`} data-index={i} aria-label={`Slide ${i + 1}`}></button>
+      ))}
+    </div>
+  </section>
+
+  <!-- Features Strip -->
+  <section class="bg-stone-50 dark:bg-gray-900 py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title text-center mb-12">{t('home.features.title')}</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
+        {features.map(f => (
+          <div class="flex flex-col items-center text-center gap-3">
+            <img src={f.img} alt={f.label} class="h-20 w-auto object-contain" loading="lazy" />
+            <span class="text-xs uppercase tracking-wider font-semibold text-gray-700 dark:text-gray-300">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About: For Family and Friends -->
+  <section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('home.family.eyebrow')}</p>
+        <h2 class="section-title mb-6">{t('home.family.title')}</h2>
+        <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mb-8"></div>
+        <p class="section-subtitle mb-4">{t('home.family.p1')}</p>
+        <p class="section-subtitle mb-4">{t('home.family.p2')}</p>
+        <p class="section-subtitle mb-8">{t('home.family.p3')}</p>
+        <a href={routes[lang].facilities} class="btn-dark">{t('home.family.cta')}</a>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-01.jpg" alt="" class="rounded w-full h-48 object-cover" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-06.jpg" alt="" class="rounded w-full h-48 object-cover mt-6" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-08.jpg" alt="" class="rounded w-full h-48 object-cover -mt-6" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-12.jpg" alt="" class="rounded w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About: Space -->
+  <section class="bg-stone-50 dark:bg-gray-900 py-20 px-4">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div class="order-2 md:order-1 grid grid-cols-2 gap-3">
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-21.jpg" alt="" class="rounded w-full h-48 object-cover" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-29.jpg" alt="" class="rounded w-full h-48 object-cover mt-6" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-35.jpg" alt="" class="rounded w-full h-48 object-cover -mt-6" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-38.jpg" alt="" class="rounded w-full h-48 object-cover" loading="lazy" />
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('home.spaces.eyebrow')}</p>
+        <h2 class="section-title mb-6">{t('home.spaces.title')}</h2>
+        <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mb-8"></div>
+        <p class="section-subtitle mb-4">{t('home.spaces.p1')}</p>
+        <p class="section-subtitle mb-4">{t('home.spaces.p2')}</p>
+        <p class="section-subtitle mb-8">{t('home.spaces.p3')}</p>
+        <a href={routes[lang].gallery} class="btn-dark">{t('home.spaces.cta')}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Season 2026 Banner -->
+  <section class="relative py-24 px-4 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-2.jpg" alt="" class="w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center text-white">
+      <p class="text-xs uppercase tracking-[0.4em] text-white/70 mb-4">{t('home.season.eyebrow')}</p>
+      <h2 class="text-3xl md:text-5xl font-light uppercase tracking-widest mb-6">{t('home.season.title')}</h2>
+      <div class="w-16 h-0.5 bg-white/60 mx-auto mb-8"></div>
+      <p class="text-lg text-white/80 mb-2 font-light">{t('home.season.short_title')}</p>
+      <p class="text-sm text-white/60 mb-6">{t('home.season.short_desc')}</p>
+      <p class="text-lg text-white/80 mb-2 font-light">{t('home.season.long_title')}</p>
+      <p class="text-sm text-white/60 mb-10">{t('home.season.long_desc')}</p>
+      <p class="text-xs text-white/50 mb-8">{t('home.season.note')}</p>
+      <a href={routes[lang].book} class="btn-primary">{t('home.season.cta')}</a>
+    </div>
+  </section>
+
+  <!-- Cap Ferret Teaser -->
+  <section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="text-xs uppercase tracking-[0.4em] text-green-800 dark:text-green-400 mb-3">{t('home.region.eyebrow')}</p>
+      <h2 class="section-title mb-6">{t('home.region.title')}</h2>
+      <div class="w-16 h-0.5 bg-green-800 dark:bg-green-500 mx-auto mb-8"></div>
+      <p class="section-subtitle max-w-3xl mx-auto mb-12">{t('home.region.p')}</p>
+      <div class="grid sm:grid-cols-3 gap-4 mb-12">
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2026/02/henri-lajarrige-lombard-3eGej5Ab4A-unsplash.png" alt="Cap Ferret" class="w-full h-56 object-cover rounded" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2026/02/raissa-lara-lutolf-fasel-3rsO1XnP6Ow-unsplash.png" alt="" class="w-full h-56 object-cover rounded hidden sm:block" loading="lazy" />
+        <img src="https://www.villa-etxola.com/wp-content/uploads/2026/02/cathrine-skovly-_BVh-uNZTaQ-unsplash.png" alt="" class="w-full h-56 object-cover rounded hidden sm:block" loading="lazy" />
+      </div>
+      <a href={routes[lang].capferret} class="btn-dark">{t('home.region.cta')}</a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('.hero-slide');
+  const dots = document.querySelectorAll<HTMLElement>('.slide-dot');
+  let current = 0;
+
+  function goTo(idx: number) {
+    slides[current].classList.remove('opacity-100');
+    slides[current].classList.add('opacity-0');
+    dots[current].classList.remove('bg-white', 'w-6');
+    dots[current].classList.add('bg-white/50', 'w-2');
+    current = idx;
+    slides[current].classList.add('opacity-100');
+    slides[current].classList.remove('opacity-0');
+    dots[current].classList.add('bg-white', 'w-6');
+    dots[current].classList.remove('bg-white/50', 'w-2');
+  }
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  setInterval(() => goTo((current + 1) % slides.length), 7000);
+</script>
