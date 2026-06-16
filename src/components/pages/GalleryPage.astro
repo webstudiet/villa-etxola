@@ -1,5 +1,7 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import { img } from '../../lib/images';
 import { routes, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -7,45 +9,27 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const galleryImages = [
-  '/images/Villa-Etxola-01.jpg',
-  '/images/Villa-Etxola-02.jpg',
-  '/images/Villa-Etxola-03.jpg',
-  '/images/Villa-Etxola-05-1.jpg',
-  '/images/Villa-Etxola-06.jpg',
-  '/images/Villa-Etxola-07.jpg',
-  '/images/Villa-Etxola-08.jpg',
-  '/images/Villa-Etxola-09.jpg',
-  '/images/Villa-Etxola-10.jpg',
-  '/images/Villa-Etxola-11.jpg',
-  '/images/Villa-Etxola-12.jpg',
-  '/images/Villa-Etxola-13.jpg',
-  '/images/Villa-Etxola-14.jpg',
-  '/images/Villa-Etxola-21.jpg',
-  '/images/Villa-Etxola-25.jpg',
-  '/images/Villa-Etxola-29.jpg',
-  '/images/Villa-Etxola-30.jpg',
-  '/images/Villa-Etxola-31.jpg',
-  '/images/Villa-Etxola-33.jpg',
-  '/images/Villa-Etxola-35.jpg',
-  '/images/Villa-Etxola-36.jpg',
-  '/images/Villa-Etxola-38.jpg',
-  '/images/Villa-Etxola-39.jpg',
-  '/images/Villa-Etxola-40.jpg',
-  '/images/Villa-Etxola-42.jpg',
-  '/images/Villa-Etxola-44.jpg',
-  '/images/Villa-Etxola-45.jpg',
-  '/images/Villa-Etxola-46.jpg',
-  '/images/Villa-Etxola-47.jpg',
-  '/images/Villa-Etxola-49.jpg',
-  '/images/Villa-Etxola-50.jpg',
+const galleryNames = [
+  'Villa-Etxola-01.jpg', 'Villa-Etxola-02.jpg', 'Villa-Etxola-03.jpg', 'Villa-Etxola-05-1.jpg',
+  'Villa-Etxola-06.jpg', 'Villa-Etxola-07.jpg', 'Villa-Etxola-08.jpg', 'Villa-Etxola-09.jpg',
+  'Villa-Etxola-10.jpg', 'Villa-Etxola-11.jpg', 'Villa-Etxola-12.jpg', 'Villa-Etxola-13.jpg',
+  'Villa-Etxola-14.jpg', 'Villa-Etxola-21.jpg', 'Villa-Etxola-25.jpg', 'Villa-Etxola-29.jpg',
+  'Villa-Etxola-30.jpg', 'Villa-Etxola-31.jpg', 'Villa-Etxola-33.jpg', 'Villa-Etxola-35.jpg',
+  'Villa-Etxola-36.jpg', 'Villa-Etxola-38.jpg', 'Villa-Etxola-39.jpg', 'Villa-Etxola-40.jpg',
+  'Villa-Etxola-42.jpg', 'Villa-Etxola-44.jpg', 'Villa-Etxola-45.jpg', 'Villa-Etxola-46.jpg',
+  'Villa-Etxola-47.jpg', 'Villa-Etxola-49.jpg', 'Villa-Etxola-50.jpg',
 ];
+
+const lightboxSrcs = await Promise.all(
+  galleryNames.map(async (name) => (await getImage({ src: img(name), width: 1600 })).src),
+);
 ---
 
 <Layout lang={lang} title={t('gal.meta.title')} description={t('gal.meta.description')}>
   <section class="page-hero">
-    <img src="/images/Villa-Etxola-gallery-carousel.jpg"
-         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <Image src={img('Villa-Etxola-gallery-carousel.jpg')} alt=""
+           widths={[768, 1280, 1920]} sizes="100vw" quality={65}
+           class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" loading="eager" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('gal.hero.title')}</h1>
   </section>
@@ -59,16 +43,18 @@ const galleryImages = [
   <section class="pb-20 px-4 bg-white dark:bg-gray-950">
     <div class="max-w-7xl mx-auto">
       <div id="gallery" class="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
-        {galleryImages.map((src, i) => (
+        {galleryNames.map((name, i) => (
           <div class="break-inside-avoid">
             <button
               class="gallery-item block w-full overflow-hidden rounded group"
-              data-src={src}
+              data-src={lightboxSrcs[i]}
               data-index={i}
               aria-label={`Photo ${i + 1}`}
             >
-              <img
-                src={src.replace('.jpg', '-300x200.jpg')}
+              <Image
+                src={img(name)}
+                widths={[300, 600]}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                 alt={`Villa Etxola — photo ${i + 1}`}
                 class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                 loading={i < 8 ? 'eager' : 'lazy'}

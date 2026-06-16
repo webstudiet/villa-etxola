@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import { img } from '../../lib/images';
 import { routes, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -11,21 +13,22 @@ const inList = t('srv.in.list') as ReadonlyArray<{ title: string; desc: string }
 const outList = t('srv.out.list') as ReadonlyArray<{ title: string; desc: string }>;
 
 const serviceImages = [
-  { src: '/images/villa-etxola-1-chef-service-KmYhY6lZxzs.jpg', alt: 'Chef service' },
-  { src: '/images/villa-etxola-2-food-shopping-gOUx23DNks.jpg', alt: 'Food shopping' },
-  { src: '/images/villa-etxola-3-yoga-n8L1VYaypcw.jpg', alt: 'Yoga' },
-  { src: '/images/Villa-Etxola-4-housekeeping.jpg', alt: 'Housekeeping' },
-  { src: '/images/villa-etxola-5-bicycles-rentals-LPVMzMsO51o.jpg', alt: 'Bicycle rental' },
-  { src: '/images/villa-etxola-6-boat-rental-H5k2qVaQPoM.jpg', alt: 'Boat rental' },
-  { src: '/images/villa-etxola-7-babysitting-2558204_1920.jpg', alt: 'Babysitting' },
-  { src: '/images/villa-etxola-8-restaurant-reservation.jpg', alt: 'Restaurant reservation' },
+  { name: 'villa-etxola-1-chef-service-KmYhY6lZxzs.jpg', alt: 'Chef service' },
+  { name: 'villa-etxola-2-food-shopping-gOUx23DNks.jpg', alt: 'Food shopping' },
+  { name: 'villa-etxola-3-yoga-n8L1VYaypcw.jpg', alt: 'Yoga' },
+  { name: 'Villa-Etxola-4-housekeeping.jpg', alt: 'Housekeeping' },
+  { name: 'villa-etxola-5-bicycles-rentals-LPVMzMsO51o.jpg', alt: 'Bicycle rental' },
+  { name: 'villa-etxola-6-boat-rental-H5k2qVaQPoM.jpg', alt: 'Boat rental' },
+  { name: 'villa-etxola-7-babysitting-2558204_1920.jpg', alt: 'Babysitting' },
+  { name: 'villa-etxola-8-restaurant-reservation.jpg', alt: 'Restaurant reservation' },
 ];
 ---
 
 <Layout lang={lang} title={t('srv.meta.title')} description={t('srv.meta.description')}>
   <section class="page-hero">
-    <img src="/images/villa-etxola-services-carousel.jpg"
-         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <Image src={img('villa-etxola-services-carousel.jpg')} alt=""
+           widths={[768, 1280, 1920]} sizes="100vw" quality={65}
+           class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" loading="eager" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('srv.hero.title')}</h1>
   </section>
@@ -65,8 +68,9 @@ const serviceImages = [
 
   <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
-      {serviceImages.map(img => (
-        <img src={img.src} alt={img.alt} class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      {serviceImages.map(s => (
+        <Image src={img(s.name)} alt={s.alt} widths={[400, 800]} sizes="(min-width: 768px) 25vw, 50vw"
+               class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
       ))}
     </div>
   </section>

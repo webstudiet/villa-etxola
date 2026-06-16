@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoDark from '../assets/images/etxola-logo.png';
 import { routes, type Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
 
@@ -23,8 +25,7 @@ const navLinks = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
       <div class="flex flex-col items-start gap-4">
         <a href={routes[lang].home} aria-label="Etxola">
-          <img src="/images/etxola-logo.png"
-               alt="Etxola" width="160" height="80" class="h-20 w-auto" />
+          <Image src={logoDark} alt="Etxola" widths={[160, 320]} sizes="160px" class="h-20 w-auto" />
         </a>
         <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
           {t('footer.summary')}

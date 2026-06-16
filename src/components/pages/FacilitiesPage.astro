@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import { img } from '../../lib/images';
 import { routes, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -8,14 +10,14 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const facilityPhotos = [
-  '/images/Villa-Etxola-facilities-01.jpg',
-  '/images/Villa-Etxola-facilities-02.jpg',
-  '/images/Villa-Etxola-facilities-03.jpg',
-  '/images/Villa-Etxola-facilities-04.jpg',
-  '/images/Villa-Etxola-facilities-05.jpg',
-  '/images/Villa-Etxola-facilities-06.jpg',
-  '/images/Villa-Etxola-facilities-07.jpg',
-  '/images/Villa-Etxola-facilities-08.jpg',
+  'Villa-Etxola-facilities-01.jpg',
+  'Villa-Etxola-facilities-02.jpg',
+  'Villa-Etxola-facilities-03.jpg',
+  'Villa-Etxola-facilities-04.jpg',
+  'Villa-Etxola-facilities-05.jpg',
+  'Villa-Etxola-facilities-06.jpg',
+  'Villa-Etxola-facilities-07.jpg',
+  'Villa-Etxola-facilities-08.jpg',
 ];
 
 const livingItems = t('fac.living.items') as readonly string[];
@@ -25,8 +27,9 @@ const outdoorItems = t('fac.outdoor.items') as readonly string[];
 
 <Layout lang={lang} title={t('fac.meta.title')} description={t('fac.meta.description')}>
   <section class="page-hero">
-    <img src="/images/Villa-Etxola-facilities-carousel-02.jpg"
-         alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <Image src={img('Villa-Etxola-facilities-carousel-02.jpg')} alt=""
+           widths={[768, 1280, 1920]} sizes="100vw" quality={65}
+           class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" loading="eager" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('fac.hero.title')}</h1>
   </section>
@@ -62,8 +65,9 @@ const outdoorItems = t('fac.outdoor.items') as readonly string[];
 
   <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
-      {facilityPhotos.slice(0, 4).map((src, i) => (
-        <img src={src} alt="" class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      {facilityPhotos.slice(0, 4).map(name => (
+        <Image src={img(name)} alt="" widths={[400, 800]} sizes="(min-width: 768px) 25vw, 50vw"
+               class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
       ))}
     </div>
   </section>
@@ -125,8 +129,9 @@ const outdoorItems = t('fac.outdoor.items') as readonly string[];
 
   <section class="bg-stone-50 dark:bg-gray-900 py-4 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
-      {facilityPhotos.slice(4, 8).map(src => (
-        <img src={src} alt="" class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
+      {facilityPhotos.slice(4, 8).map(name => (
+        <Image src={img(name)} alt="" widths={[400, 800]} sizes="(min-width: 768px) 25vw, 50vw"
+               class="w-full h-48 md:h-56 object-cover rounded" loading="lazy" />
       ))}
     </div>
   </section>

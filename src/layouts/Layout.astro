@@ -1,7 +1,9 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import defaultOgImage from '../assets/images/villa-etxola-carousel-1.jpg';
 import { routes, type Lang } from '../i18n/ui';
 import { getRouteKeyForPath, getAlternateLang } from '../i18n/utils';
 
@@ -20,14 +22,15 @@ const {
   description = lang === 'fr'
     ? "Etxola — villa de luxe au Cap Ferret, 7 chambres pour 14 personnes, piscine chauffée et jardin de 1 800 m²."
     : 'Etxola — a luxury villa in Cap Ferret, France. 7 bedrooms for 14 guests with heated pool, garden and concierge.',
-  image = '/images/villa-etxola-carousel-1.jpg',
+  image,
   canonicalPath,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.villa-etxola.com';
 const path = canonicalPath ?? Astro.url.pathname;
 const canonical = `${siteUrl}${path}`;
-const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const ogImagePath = image ?? (await getImage({ src: defaultOgImage, width: 1200 })).src;
+const absoluteImage = ogImagePath.startsWith('http') ? ogImagePath : `${siteUrl}${ogImagePath}`;
 
 // hreflang alternates — link the equivalent page in the other locale
 const routeKey = getRouteKeyForPath(path);
