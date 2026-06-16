@@ -8,16 +8,16 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const regionImages = [
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/henri-lajarrige-lombard-3eGej5Ab4A-unsplash.png', alt: 'Cap Ferret peninsula' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/raissa-lara-lutolf-fasel-3rsO1XnP6Ow-unsplash.png', alt: 'Cap Ferret village' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/yann-behr-wHWCF5SbDQo-unsplash.png', alt: 'Cap Ferret bay' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2026/02/cathrine-skovly-_BVh-uNZTaQ-unsplash.png', alt: 'Oysters at Cap Ferret' },
+  { src: '/images/henri-lajarrige-lombard-3eGej5Ab4A-unsplash.png', alt: 'Cap Ferret peninsula' },
+  { src: '/images/raissa-lara-lutolf-fasel-3rsO1XnP6Ow-unsplash.png', alt: 'Cap Ferret village' },
+  { src: '/images/yann-behr-wHWCF5SbDQo-unsplash.png', alt: 'Cap Ferret bay' },
+  { src: '/images/cathrine-skovly-_BVh-uNZTaQ-unsplash.png', alt: 'Oysters at Cap Ferret' },
 ];
 ---
 
 <Layout lang={lang} title={t('cf.meta.title')} description={t('cf.meta.description')}>
   <section class="page-hero">
-    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/le-cap-ferret.jpg"
+    <img src="/images/le-cap-ferret.jpg"
          alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('cf.hero.title')}</h1>

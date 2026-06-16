@@ -20,13 +20,14 @@ const {
   description = lang === 'fr'
     ? "Etxola — villa de luxe au Cap Ferret, 7 chambres pour 14 personnes, piscine chauffée et jardin de 1 800 m²."
     : 'Etxola — a luxury villa in Cap Ferret, France. 7 bedrooms for 14 guests with heated pool, garden and concierge.',
-  image = 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-carousel-1.jpg',
+  image = '/images/villa-etxola-carousel-1.jpg',
   canonicalPath,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.villa-etxola.com';
 const path = canonicalPath ?? Astro.url.pathname;
 const canonical = `${siteUrl}${path}`;
+const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
 // hreflang alternates — link the equivalent page in the other locale
 const routeKey = getRouteKeyForPath(path);
@@ -45,7 +46,7 @@ const vacationRental = {
     ? "Villa d'architecte de prestige au Cap Ferret avec 7 chambres pour 14 personnes, piscine chauffée et jardin de 1 800 m²."
     : 'Architect-designed luxury villa in Cap Ferret with 7 bedrooms for 14 guests, heated pool and 1,800 sqm garden.',
   url: siteUrl,
-  image,
+  image: absoluteImage,
   brand: { '@type': 'Brand', name: 'Etxola' },
   address: {
     '@type': 'PostalAddress',
@@ -101,13 +102,13 @@ const vacationRental = {
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={image} />
+  <meta property="og:image" content={absoluteImage} />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={image} />
+  <meta name="twitter:image" content={absoluteImage} />
 
   <!-- Fonts (preconnect to keep things fast) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

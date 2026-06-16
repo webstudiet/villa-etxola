@@ -8,14 +8,14 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const facilityPhotos = [
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-01.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-02.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-03.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-04.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-05.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-06.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-07.jpg',
-  'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-08.jpg',
+  '/images/Villa-Etxola-facilities-01.jpg',
+  '/images/Villa-Etxola-facilities-02.jpg',
+  '/images/Villa-Etxola-facilities-03.jpg',
+  '/images/Villa-Etxola-facilities-04.jpg',
+  '/images/Villa-Etxola-facilities-05.jpg',
+  '/images/Villa-Etxola-facilities-06.jpg',
+  '/images/Villa-Etxola-facilities-07.jpg',
+  '/images/Villa-Etxola-facilities-08.jpg',
 ];
 
 const livingItems = t('fac.living.items') as readonly string[];
@@ -25,7 +25,7 @@ const outdoorItems = t('fac.outdoor.items') as readonly string[];
 
 <Layout lang={lang} title={t('fac.meta.title')} description={t('fac.meta.description')}>
   <section class="page-hero">
-    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-facilities-carousel-02.jpg"
+    <img src="/images/Villa-Etxola-facilities-carousel-02.jpg"
          alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('fac.hero.title')}</h1>

@@ -46,7 +46,7 @@ const altHref = routeKey ? routes[altLang][routeKey] : routes[altLang].home;
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center justify-between py-4">
         <a href={routes[lang].home} class="flex-shrink-0">
-          <img src="https://www.villa-etxola.com/wp-content/uploads/2021/03/etxola-logo-white.png"
+          <img src="/images/etxola-logo-white.png"
                alt="Etxola" width="160" height="64" class="h-12 md:h-16 w-auto transition-all duration-300" id="nav-logo" />
         </a>
 
@@ -107,7 +107,7 @@ const altHref = routeKey ? routes[altLang][routeKey] : routes[altLang].home;
       mainNav?.classList.add('bg-white', 'dark:bg-gray-950', 'shadow-lg');
       topBar?.classList.add('hidden');
       if (navLogo) {
-        navLogo.src = 'https://www.villa-etxola.com/wp-content/uploads/2021/03/etxola-logo.png';
+        navLogo.src = '/images/etxola-logo.png';
         navLogo.classList.add('h-10');
         navLogo.classList.remove('h-12', 'md:h-16');
       }
@@ -120,7 +120,7 @@ const altHref = routeKey ? routes[altLang][routeKey] : routes[altLang].home;
       mainNav?.classList.remove('bg-white', 'dark:bg-gray-950', 'shadow-lg');
       topBar?.classList.remove('hidden');
       if (navLogo) {
-        navLogo.src = 'https://www.villa-etxola.com/wp-content/uploads/2021/03/etxola-logo-white.png';
+        navLogo.src = '/images/etxola-logo-white.png';
         navLogo.classList.remove('h-10');
         navLogo.classList.add('h-12', 'md:h-16');
       }

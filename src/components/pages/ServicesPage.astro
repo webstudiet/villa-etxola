@@ -11,20 +11,20 @@ const inList = t('srv.in.list') as ReadonlyArray<{ title: string; desc: string }
 const outList = t('srv.out.list') as ReadonlyArray<{ title: string; desc: string }>;
 
 const serviceImages = [
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-1-chef-service-KmYhY6lZxzs.jpg', alt: 'Chef service' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-2-food-shopping-gOUx23DNks.jpg', alt: 'Food shopping' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-3-yoga-n8L1VYaypcw.jpg', alt: 'Yoga' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/Villa-Etxola-4-housekeeping.jpg', alt: 'Housekeeping' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-5-bicycles-rentals-LPVMzMsO51o.jpg', alt: 'Bicycle rental' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-6-boat-rental-H5k2qVaQPoM.jpg', alt: 'Boat rental' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-7-babysitting-2558204_1920.jpg', alt: 'Babysitting' },
-  { src: 'https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-8-restaurant-reservation.jpg', alt: 'Restaurant reservation' },
+  { src: '/images/villa-etxola-1-chef-service-KmYhY6lZxzs.jpg', alt: 'Chef service' },
+  { src: '/images/villa-etxola-2-food-shopping-gOUx23DNks.jpg', alt: 'Food shopping' },
+  { src: '/images/villa-etxola-3-yoga-n8L1VYaypcw.jpg', alt: 'Yoga' },
+  { src: '/images/Villa-Etxola-4-housekeeping.jpg', alt: 'Housekeeping' },
+  { src: '/images/villa-etxola-5-bicycles-rentals-LPVMzMsO51o.jpg', alt: 'Bicycle rental' },
+  { src: '/images/villa-etxola-6-boat-rental-H5k2qVaQPoM.jpg', alt: 'Boat rental' },
+  { src: '/images/villa-etxola-7-babysitting-2558204_1920.jpg', alt: 'Babysitting' },
+  { src: '/images/villa-etxola-8-restaurant-reservation.jpg', alt: 'Restaurant reservation' },
 ];
 ---
 
 <Layout lang={lang} title={t('srv.meta.title')} description={t('srv.meta.description')}>
   <section class="page-hero">
-    <img src="https://www.villa-etxola.com/wp-content/uploads/2021/07/villa-etxola-services-carousel.jpg"
+    <img src="/images/villa-etxola-services-carousel.jpg"
          alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('srv.hero.title')}</h1>
