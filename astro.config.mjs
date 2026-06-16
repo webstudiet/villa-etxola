@@ -2,9 +2,12 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://www.villa-etxola.com',
   trailingSlash: 'always',
+
   i18n: {
     defaultLocale: 'fr',
     locales: ['fr', 'en'],
@@ -13,7 +16,10 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: cloudflare(),
 });
