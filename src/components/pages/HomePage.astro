@@ -48,9 +48,11 @@ const heroSlides = [
         <a href={routes[lang].book} class="btn-primary">{t('home.hero.book')}</a>
       </div>
     </div>
-    <div class="absolute bottom-8 left-0 right-0 z-10 flex justify-center gap-2">
+    <div class="absolute bottom-4 left-0 right-0 z-10 flex justify-center">
       {heroSlides.map((_, i) => (
-        <button class={`slide-dot w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-white w-6' : 'bg-white/50'}`} data-index={i} aria-label={`Slide ${i + 1}`}></button>
+        <button class="slide-dot p-3" data-index={i} aria-label={`Slide ${i + 1}`}>
+          <span class={`slide-dot-inner block h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-white w-6' : 'bg-white/50 w-2'}`}></span>
+        </button>
       ))}
     </div>
   </section>
@@ -126,7 +128,7 @@ const heroSlides = [
       <p class="text-sm text-white/60 mb-6">{t('home.season.short_desc')}</p>
       <p class="text-lg text-white/80 mb-2 font-light">{t('home.season.long_title')}</p>
       <p class="text-sm text-white/60 mb-10">{t('home.season.long_desc')}</p>
-      <p class="text-xs text-white/50 mb-8">{t('home.season.note')}</p>
+      <p class="text-xs text-white/70 mb-8">{t('home.season.note')}</p>
       <a href={routes[lang].book} class="btn-primary">{t('home.season.cta')}</a>
     </div>
   </section>
@@ -151,18 +153,19 @@ const heroSlides = [
 <script>
   const slides = document.querySelectorAll<HTMLElement>('.hero-slide');
   const dots = document.querySelectorAll<HTMLElement>('.slide-dot');
+  const dotInners = document.querySelectorAll<HTMLElement>('.slide-dot-inner');
   let current = 0;
 
   function goTo(idx: number) {
     slides[current].classList.remove('opacity-100');
     slides[current].classList.add('opacity-0');
-    dots[current].classList.remove('bg-white', 'w-6');
-    dots[current].classList.add('bg-white/50', 'w-2');
+    dotInners[current].classList.remove('bg-white', 'w-6');
+    dotInners[current].classList.add('bg-white/50', 'w-2');
     current = idx;
     slides[current].classList.add('opacity-100');
     slides[current].classList.remove('opacity-0');
-    dots[current].classList.add('bg-white', 'w-6');
-    dots[current].classList.remove('bg-white/50', 'w-2');
+    dotInners[current].classList.add('bg-white', 'w-6');
+    dotInners[current].classList.remove('bg-white/50', 'w-2');
   }
 
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
