@@ -21,14 +21,14 @@ const galleryNames = [
 ];
 
 const lightboxSrcs = await Promise.all(
-  galleryNames.map(async (name) => (await getImage({ src: img(name), width: 1600 })).src),
+  galleryNames.map(async (name) => (await getImage({ src: img(name), width: 1600, quality: 70 })).src),
 );
 ---
 
 <Layout lang={lang} title={t('gal.meta.title')} description={t('gal.meta.description')}>
   <section class="page-hero">
     <Image src={img('Villa-Etxola-gallery-carousel.jpg')} alt=""
-           widths={[768, 1280, 1920]} sizes="100vw" quality={65}
+           widths={[768, 1280, 1920]} sizes="100vw" quality={60}
            class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" loading="eager" />
     <div class="hero-overlay"></div>
     <h1 class="hero-title">{t('gal.hero.title')}</h1>
@@ -53,7 +53,7 @@ const lightboxSrcs = await Promise.all(
             >
               <Image
                 src={img(name)}
-                widths={[300, 600]}
+                widths={[300, 600]} quality={60}
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                 alt={`Villa Etxola — photo ${i + 1}`}
                 class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"

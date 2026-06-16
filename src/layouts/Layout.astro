@@ -1,5 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
+import '@fontsource-variable/montserrat';
+import '@fontsource-variable/open-sans';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -112,11 +114,6 @@ const vacationRental = {
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={absoluteImage} />
-
-  <!-- Fonts (preconnect to keep things fast) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <!-- JSON-LD structured data — VacationRental -->
   <script type="application/ld+json" set:html={JSON.stringify(vacationRental)} />
